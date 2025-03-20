@@ -1,6 +1,6 @@
 title: My Jekyll Site
 description: This is my awesome Jekyll site using the Minima theme.
-theme: modernist
+theme: minima
 
 # Optional settings
 markdown: kramdown
