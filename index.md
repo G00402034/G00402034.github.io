@@ -1,7 +1,7 @@
 ---
 layout: home
-title: Welcome
+title: HomePage
 ---
 
-# Welcome to My Jekyll Site
-This is the homepage of my awesome Jekyll site.
+# C++ Digital Rain Project 
+This is my github page for tracking and blogging my progress for my c++ digital rain project.
