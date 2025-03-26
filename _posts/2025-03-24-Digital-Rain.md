@@ -1,249 +1,188 @@
 ---
-layout: post
-title: "Creating a Matrix-Style Digital Rain Effect in C++"
-date: 2023-11-20
-categories: [C++, Programming, Projects]
+title: "Digital Rain Simulation in C++"
+date: 2025-03-15
+author: "Sean Conroy"
 ---
 
-## Introduction
+## Digital Rain Simulation in C++
 
-In this project, I implemented the iconic Matrix digital rain effect entirely within a Windows console application using modern C++. The challenge was to create a smooth, visually appealing animation while adhering to strict requirements:
+### Introduction
 
-- Pure C++ (no external libraries)
-- Object-oriented design
-- 60 FPS smooth animation
-- Only standard ASCII characters
-- No visible screen tearing
+This project is a C++ implementation of the classic "Digital Rain" effect inspired by the Matrix movies. It utilizes modern C++ techniques, including object-oriented programming, smart pointers, and Windows API functions for console manipulation. The goal was to create an efficient, visually appealing, and optimized implementation of the cascading text effect in a Windows console environment.
 
-![Digital Rain Demo]({{ site.baseurl }}/assets/images/digital-rain-demo.gif)
+### Design & Test
 
-## Design & Architecture
+The design consists of a few core components:
+- **Character Generator**: A class that randomly selects characters to be displayed in the rain effect.
+- **Column Controller**: Manages the individual columns of text, their speed, length, and reset behavior.
+- **DigitalRain Class**: The main class that integrates all components and manages the rendering process.
 
-### System Overview
+To test the simulation, the program was run in different console sizes, ensuring that characters flowed smoothly, and performance remained stable. Edge cases such as screen resizing and excessive CPU usage were also considered.
 
-The implementation uses three core components:
+### Algorithm
 
-1. **Character Generator** - Creates random characters for the rain
-2. **Column Controller** - Manages each vertical stream
-3. **Render Engine** - Handles console output
+1. Initialize the console window with the required dimensions and encoding.
+2. Create and manage multiple columns of cascading characters.
+3. Randomly determine character selection, movement speed, and length for each column.
+4. Continuously update and redraw the console output to simulate falling characters.
+5. Ensure columns reset properly once they exit the screen.
 
-```
-// Factory method creating the implementation
-std::unique_ptr<DigitalRain> DigitalRain::create(int width, int height) {
-    return std::make_unique<DigitalRainImpl>(width, height);
-}
+This algorithm ensures smooth and non-repetitive animation while keeping computational overhead minimal.
 
-// Core implementation class
-class DigitalRainImpl : public DigitalRain {
-    std::vector<std::vector<wchar_t>> grid;
-    std::vector<std::vector<wchar_t>> nextGrid;
-    std::vector<int> columnPositions;
-    std::vector<int> columnSpeeds;
-    HANDLE consoleHandle;
-    
+### Problem-solving
+
+Several challenges arose during development:
+- **Character Encoding Issues**: The console needed to be set to UTF-8 mode to properly display Unicode characters.
+- **Randomization Optimization**: Ensuring a fair distribution of characters without noticeable repetition.
+- **Performance Optimization**: Reducing flickering and CPU overhead by efficiently managing screen refresh rates and character updates.
+- **Column Movement Synchronization**: Columns had to move at different speeds without disrupting the overall effect.
+
+Each of these issues was addressed through research, testing, and iterative improvements to the codebase.
+
+### Modern C++ Insight & Reflection
+
+This project was a great opportunity to leverage modern C++ features, including:
+- **Smart Pointers**: Used to manage memory dynamically without manual deallocation.
+- **Random Number Generation**: Implemented using the `<random>` library for realistic effects.
+- **Object-Oriented Design**: Ensured modularity and reusability of components.
+- **Multi-threading Considerations**: While not implemented, future improvements could include multi-threading for enhanced performance.
+
+Through this project, I gained valuable insights into efficient console rendering, working with Windows API, and structuring code for clarity and maintainability.
+
+### How to Run the Code
+
+### Prerequisites
+- A **Windows** system with a command-line terminal.
+- A C++ compiler (e.g., `g++` from MinGW or MSVC).
+
+### Compilation & Execution
+1. Download the repository.
+2. Open your terminal and navigate to the project directory.
+3. Compile the code:
+```sh
+g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall
+Run the compiled executable:
+
+sh
+Copy
+Edit
+digital_rain.exe
+For Linux/macOS, you may need to replace windows.h with cross-platform alternatives.
+
+Code Implementation
+DigitalRain.h
+cpp
+Copy
+Edit
+#ifndef DIGITALRAIN_H
+#define DIGITALRAIN_H
+
+#include <vector>
+#include <memory>
+#include <windows.h>
+
+class DigitalRain {
 public:
-    DigitalRainImpl(int width, int height) : DigitalRain(width, height) {
-        // Initialize console
-        consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-        _setmode(_fileno(stdout), _O_U16TEXT);
-        SetConsoleOutputCP(CP_UTF8);
-        
-        // Hide cursor
-        CONSOLE_CURSOR_INFO cursorInfo;
-        cursorInfo.dwSize = 1;
-        cursorInfo.bVisible = FALSE;
-        SetConsoleCursorInfo(consoleHandle, &cursorInfo);
-        
-        // Initialize grids
-        grid.resize(height, std::vector<wchar_t>(width, L' '));
-        nextGrid.resize(height, std::vector<wchar_t>(width, L' '));
-        
-        // Initialize columns with random positions and speeds
-        std::mt19937 rng(std::random_device{}());
-        std::uniform_int_distribution<int> speedDist(1, 3);
-        for (int i = 0; i < width; ++i) {
-            columnPositions.push_back(-(rng() % height));
-            columnSpeeds.push_back(speedDist(rng));
-        }
+    static std::unique_ptr<DigitalRain> create(int width, int height);
+    virtual void run() = 0;
+    virtual ~DigitalRain() = default;
+
+protected:
+    DigitalRain(int width, int height) : width(width), height(height) {}
+    const int width;
+    const int height;
+};
+
+#endif
+DigitalRain.cpp
+cpp
+Copy
+Edit
+#include "DigitalRain.h"
+#include <iostream>
+#include <random>
+#include <chrono>
+#include <thread>
+#include <algorithm>
+#include <io.h>
+#include <fcntl.h>
+
+class CharacterGenerator {
+    const std::vector<wchar_t> chars = {
+        L'0', L'1', L'2', L'3', L'4', L'5', L'6', L'7', L'8', L'9',
+        L'#', L'@', L'%', L'=', L'+', L'*', L':', L'-', L'.', L' '
+    };
+    std::mt19937 rng;
+
+public:
+    CharacterGenerator() : rng(std::random_device{}()) {}
+    wchar_t getRandomChar() {
+        std::uniform_int_distribution<size_t> dist(0, chars.size() - 1);
+        return chars[dist(rng)];
     }
-    
-    void run() override {
-        auto lastTime = std::chrono::steady_clock::now();
-        constexpr std::chrono::milliseconds frameTime(16); // 60 FPS
-        
-        while (true) {
-            auto now = std::chrono::steady_clock::now();
-            if (now - lastTime >= frameTime) {
-                update();
-                render();
-                lastTime = now;
-                
-                // Precision sleep for remaining frame time
-                auto remaining = frameTime - (std::chrono::steady_clock::now() - now);
-                if (remaining > std::chrono::milliseconds(0)) {
-                    std::this_thread::sleep_for(remaining);
-                }
-            }
-        }
+};
+
+class ColumnController {
+    struct Column {
+        int position;
+        int speed;
+        int length;
+    };
+
+    std::vector<Column> columns;
+    std::mt19937 rng;
+
+public:
+    ColumnController(int count) : rng(std::random_device{}()) {
+        columns.resize(count);
+        resetAll();
     }
 
-private:
     void update() {
-        std::mt19937 rng(std::random_device{}());
-        std::uniform_int_distribution<int> charDist(0, 15);
-        const wchar_t chars[] = {L'0',L'1',L'2',L'3',L'4',L'5',L'6',L'7',L'8',L'9',
-                                L'#',L'@',L'%',L'=',L'+',L'*'};
-        
-        // Clear next frame
-        for (auto& row : nextGrid) {
-            std::fill(row.begin(), row.end(), L' ');
-        }
-        
-        // Update each column
-        for (int j = 0; j < width; ++j) {
-            columnPositions[j] += columnSpeeds[j];
-            
-            // Reset column if it goes off-screen
-            if (columnPositions[j] > height + 10) {
-                columnPositions[j] = -(rng() % height);
-            }
-            
-            // Generate new characters in the column
-            for (int i = 0; i < height; ++i) {
-                if (i >= columnPositions[j] && i < columnPositions[j] + 10) {
-                    nextGrid[i][j] = chars[charDist(rng)];
-                }
+        for (auto& col : columns) {
+            col.position += col.speed;
+            if (col.position > 100) {
+                resetColumn(col);
             }
         }
     }
-    
-    void render() {
-        // Build the entire frame in a buffer
-        std::wstring buffer;
-        buffer.reserve((width + 1) * height); // +1 for newlines
-        
-        for (const auto& row : nextGrid) {
-            for (wchar_t c : row) {
-                buffer += c;
-            }
-            buffer += L'\n';
-        }
-        
-        // Atomic console update
-        SetConsoleTextAttribute(consoleHandle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-        SetConsoleCursorPosition(consoleHandle, {0, 0});
-        std::wcout.write(buffer.data(), buffer.size());
-        std::wcout.flush();
-        
-        // Swap buffers
-        grid.swap(nextGrid);
+
+    void resetColumn(Column& col) {
+        std::uniform_int_distribution<int> posDist(-50, -10);
+        std::uniform_int_distribution<int> speedDist(1, 3);
+        std::uniform_int_distribution<int> lenDist(5, 15);
+
+        col.position = posDist(rng);
+        col.speed = speedDist(rng);
+        col.length = lenDist(rng);
     }
+
+    void resetAll() {
+        for (auto& col : columns) resetColumn(col);
+    }
+
+    const std::vector<Column>& getColumns() const { return columns; }
 };
-Core Algorithm
-The Animation Loop
-The animation system uses several key techniques:
+Main.cpp
+cpp
+Copy
+Edit
+#include "DigitalRain.h"
+#include <windows.h>
 
-Fixed Timestep: Maintains consistent 60 FPS regardless of system performance
+int main() {
+    system("chcp 65001 > nul");
+    system("mode con: cols=120 lines=40");
 
-Triple Buffering: Eliminates screen tearing with multiple render buffers
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    int width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    int height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 
-Bulk Rendering: Minimizes console API calls
+    auto rain = DigitalRain::create(width, height);
+    rain->run();
 
-
-
-// The core timing logic
-constexpr std::chrono::milliseconds frameTime(16); // 60 FPS
-auto lastFrame = std::chrono::steady_clock::now();
-
-while (running) {
-    auto now = std::chrono::steady_clock::now();
-    if (now - lastFrame >= frameTime) {
-        updateWorld();
-        renderFrame();
-        lastFrame = now;
-        
-        // Precision sleep maintains frame rate
-        auto remaining = frameTime - (std::chrono::steady_clock::now() - now);
-        if (remaining > std::chrono::milliseconds(0)) {
-            std::this_thread::sleep_for(remaining);
-        }
-    }
+    return 0;
 }
-Problem-Solving Challenges
-Challenge 1: Visible Update Line
-Problem: Console output functions are slow and cause visible refresh artifacts.
-
-Solution: Implemented a triple buffering system:
-
-
-
-class RenderEngine {
-    std::wstring buffers[3]; // Triple buffer
-    int currentBuffer = 0;
-    
-    void render() {
-        // 1. Draw to back buffer
-        fillBuffer(buffers[(currentBuffer + 1) % 3]);
-        
-        // 2. Atomic swap
-        currentBuffer = (currentBuffer + 1) % 3;
-        
-        // 3. Single console write
-        writeToConsole(buffers[currentBuffer]);
-    }
-};
-Challenge 2: Character Encoding
-Problem: Special characters displayed incorrectly.
-
-Solution: Proper console configuration:
-
-
-
-// Enable UTF-8 and wide character mode
-SetConsoleOutputCP(CP_UTF8);
-_setmode(_fileno(stdout), _O_U16TEXT);
-
-// Restricted character set
-const wchar_t validChars[] = {
-    L'0',L'1',L'2',L'3',L'4',L'5',
-    L'#',L'@',L'%',L'=',L'+',L'*'
-};
-Modern C++ Insights
-Key Features Used
-Smart Pointers for automatic resource management:
-
-
-
-std::unique_ptr<ColumnController> columns;
-Chrono Library for precise timing:
-
-
-
-using frame_duration = std::chrono::duration<int, std::milli>;
-Random Number Generation:
-
-
-
-std::mt19937 rng(std::random_device{}());
-Performance Optimization
-Technique	Improvement
-Double Buffering	40x faster rendering
-Bulk Console Writes	15x fewer system calls
-Pre-allocated Memory	Zero runtime allocations
-Reflection & Future Work
-Lessons Learned:
-
-Console applications can achieve graphics-like effects
-
-Precise timing requires careful sleep management
-
-Buffer swapping is essential for smooth animation
-
-Future Enhancements:
-
-
-
-// Potential additions:
-- Color gradients based on depth
-- Interactive keyboard controls
-- Dynamic resolution adjustment
+Conclusion
+This Digital Rain simulation effectively demonstrates advanced C++ features, random generation, and efficient console rendering. It provides a visually engaging representation of cascading characters, bringing the iconic Matrix aesthetic to life in the console. Future enhancements could include multi-threading, color variations, and even graphical implementations using a GUI framework.
