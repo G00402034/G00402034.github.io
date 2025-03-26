@@ -5,7 +5,7 @@ author: "Sean Conroy"
 ---
 
 ## Digital Rain Simulation in C++
-![Digital Rain in Action](assets/digital_rain.gif)
+![Digital Rain in Action](assets/VsDebugConsole_NiEamvhBHi.gif)
 
 
 ### Introduction
