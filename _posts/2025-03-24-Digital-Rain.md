@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Digital Rain: A Deep Dive into Console Animation with Modern C++"
-date: 2023-11-20
+date: 2025-03-24
 categories: [C++, Programming, Systems]
 ---
 
