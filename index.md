@@ -31,11 +31,11 @@ The design consists of a few core components:
 I tested the simulation by running the program in different console sizes to ensure that characters moved smoothly in both window types.
 
 ### Algorithm
-**Initialize the console window with the required dimensions.**
-**Create and manage multiple columns of falling characters.**
-**Randomly determine character selection, movement speed, and length for each column.**
-**Update and redraw the console output to show falling characters.**
-**Makes sure columns reset properly once they exit the screen.**
+- **Initialize the console window with the required dimensions.**
+- **Create and manage multiple columns of falling characters.**
+- **Randomly determine character selection, movement speed, and length for each column.**
+- **Update and redraw the console output to show falling characters.**
+- **Makes sure columns reset properly once they exit the screen.**
 
 **This algorithm create a smooth and non-repetitive animation.**
 
@@ -64,11 +64,10 @@ Through this project, I learned about console rendering techniques, working with
 1. Download the repository.
 2. Open your terminal and navigate to the project directory.
 3. Compile the code:
-
-**g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall**
+- **g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall**
 Run the compiled executable:
-**digital_rain.exe**
-**For Linux/macOS, you may need to replace windows.h with cross-platform alternatives.**
+- **digital_rain.exe**
+- **For Linux/macOS, you may need to replace windows.h with cross-platform alternatives.**
 
 
 ## Final Code 
@@ -189,4 +188,4 @@ int main() {
 ```
 
 ## Conclusion
-**This Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It provides a visually pleasing display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.**
+- **This Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It provides a visually pleasing display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.**
