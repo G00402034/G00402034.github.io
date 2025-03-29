@@ -8,7 +8,7 @@ author: "Sean Conroy"
 ![Digital Rain in Action](assets/VsDebugConsole_NiEamvhBHi.gif)
 ## UML Diagram of Digital Rain Project
 ![UML Diagram](assets/chrome_wlvICTHz0N.png)
-The diagram shows the main classes and their relationships:
+**The diagram shows the main classes and their relationships:**
 
 - **Private variables are marked with "-", public with "+", protected with "#"**
 
@@ -57,13 +57,13 @@ The diagram shows the main classes and their relationships:
 
 ### How to Run the Code
 
-- A **Windows** system with a command-line terminal.
-- A C++ compiler (e.g., `g++` from MinGW or MSVC).
+- **A **Windows** system with a command-line terminal.**
+- **A C++ compiler (e.g., `g++` from MinGW or MSVC).**
 
 ### Compilation & Execution
-1. Download the repository.
-2. Open your terminal and navigate to the project directory.
-3. Compile the code:
+**1. Download the repository.**
+**2. Open your terminal and navigate to the project directory.**
+**3. Compile the code:**
 - **g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall**
   
 Run the compiled executable:
@@ -190,3 +190,11 @@ int main() {
 
 ## Conclusion
 - **This Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It provides a visually pleasing display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.**
+
+## References
+   - **[C++ Standard Library Reference](https://en.cppreference.com/w/)**
+   - **[Windows Console API Documentation](https://docs.microsoft.com/en-us/windows/console/)**
+   - **[UTF-8 in Windows Console](https://devblogs.microsoft.com/commandline/windows-command-line-unicode-and-utf-8-output-text-buffer/)**
+   - **[Double Buffering Pattern](https://gameprogrammingpatterns.com/double-buffer.html)**
+   - **[Optimizing C++ Code](https://www.agner.org/optimize/optimizing_cpp.pdf)**
+   - **OpenAI ChatGPT (2023). *AI language model assisting with code structure and documentation*. [https://chat.openai.com](https://chat.openai.com)**
