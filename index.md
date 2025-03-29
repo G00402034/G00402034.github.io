@@ -17,11 +17,11 @@ author: "Sean Conroy"
 - **The Column struct is shown as a separate class since it has its own behavior**
 
 
-### Introduction
+## Introduction
 
 - **This project is a C++ implementation of the "Digital Rain" effect inspired by the Matrix movies. It uses modern C++ techniques like object-oriented programming, smart pointers, and Windows API functions for console manipulation. My goal was to create a visually appealing implementation of the effect in a Windows console.**
 
-### Design & Test
+## Design & Test
 
 **The design consists of a few core components:**
 - **Character Generator**: A class that randomly selects characters to be displayed in the rain effect.
@@ -30,7 +30,7 @@ author: "Sean Conroy"
 
 - **I tested the Digital Rain by running the program in different console sizes to ensure that characters moved smoothly in both window types.**
 
-### Algorithm
+## Algorithm
 - **Initialize the console window with the required dimensions.**
 - **Create and manage multiple columns of falling characters.**
 - **Randomly determine character selection, movement speed, and length for each column.**
@@ -39,7 +39,7 @@ author: "Sean Conroy"
 
 - **This algorithm creates a smooth and non-repetitive animation.**
 
-### Problem-solving
+## Problem-solving
 
 **Some challenges that I had during development:**
 - **Character Encoding Issues**: The console needed to be set to UTF-8 mode to properly display Unicode characters which still didn't work for katana.
@@ -47,7 +47,7 @@ author: "Sean Conroy"
 - **Performance Optimization**: Reducing flickering by changing screen refresh rates and character updates.
 - **Column Movement Synchronization**: Columns had to move at different speeds.
 
-### Modern C++ Insight & Reflection
+## Modern C++ Insight & Reflection
 **This project was a great opportunity for me to try out C++ features, including:**
 - **Smart Pointers**: I used these to manage memory dynamically.
 - **Random Number Generation**: Used the `<random>` library for realistic RNG.
@@ -55,18 +55,18 @@ author: "Sean Conroy"
 
 - **Through this project, I learned about console rendering techniques, working with Windows API, and structuring code for reusability and maintainability.**
 
-### How to Run the Code
+## How to Run the Code
 
 - **A **Windows** system with a command-line terminal.**
 - **A C++ compiler (e.g., `g++` from MinGW or MSVC).**
 
-### Compilation & Execution
+## Compilation & Execution
 **1. Download the repository.**
 **2. Open your terminal and navigate to the project directory.**
 **3. Compile the code:**
 - **g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall**
   
-Run the compiled executable:
+**Run the compiled executable:**
 - **digital_rain.exe**
 - **For Linux/macOS, you may need to replace windows.h with cross-platform alternatives.**
 
