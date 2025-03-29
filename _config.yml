@@ -1,6 +1,5 @@
 title: Digital Rain C++ Project
 description: This is my Digital Rain C++ Project.
-remote_theme: "mmistakes/minimal-mistakes@4.24.0"
-minimal_mistakes_skin: "dark"
+theme: jekyll-theme-cayman
 markdown: kramdown
 highlighter: rouge
