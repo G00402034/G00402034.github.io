@@ -19,7 +19,7 @@ The Column struct is shown as a separate class since it has its own behavior
 
 ### Introduction
 
-This project is a C++ implementation of the "Digital Rain" effect inspired by the Matrix movies. It uses modern C++ techniques like object-oriented programming, smart pointers, and Windows API functions for console manipulation. My goal was to create a visually appealing and optimized implementation of the effect in a Windows console.
+This project is a C++ implementation of the "Digital Rain" effect inspired by the Matrix movies. It uses modern C++ techniques like object-oriented programming, smart pointers, and Windows API functions for console manipulation. My goal was to create a visually appealing implementation of the effect in a Windows console.
 
 ### Design & Test
 
@@ -28,7 +28,7 @@ The design consists of a few core components:
 - **Column Controller**: Manages the individual columns of text, their speed, length, and reset behavior.
 - **DigitalRain Class**: The main class that integrates all components and manages the rendering process.
 
-I tested the simulation by running the programme in different console sizes to ensure that characters flowed smoothly in both window types.
+I tested the simulation by running the program in different console sizes to ensure that characters moved smoothly in both window types.
 
 ### Algorithm
 1. Initialize the console window with the required dimensions.
@@ -48,7 +48,7 @@ Some challenges that I had during development:
 - **Column Movement Synchronization**: Columns had to move at different speeds.
 
 ### Modern C++ Insight & Reflection
-This project was a great opportunity to try out C++ features, including:
+This project was a great opportunity for me to try out C++ features, including:
 - **Smart Pointers**: I used these to manage memory dynamically.
 - **Random Number Generation**: Used the `<random>` library for realistic RNG.
 - **Object-Oriented Design**: Made sure my components were reuasble and modular.
@@ -67,15 +67,14 @@ Through this project, I learned about console rendering techniques, working with
 
 g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall
 Run the compiled executable:
-
-'''sh
 digital_rain.exe
 For Linux/macOS, you may need to replace windows.h with cross-platform alternatives.
 
+```cpp
 ##Final Code 
-##DigitalRain.h
+###DigitalRain.h
 
-Edit
+
 #ifndef DIGITALRAIN_H
 #define DIGITALRAIN_H
 
@@ -96,10 +95,11 @@ protected:
 };
 
 #endif
+```
+
 
 ##DigitalRain.cpp
-
-Edit
+```cpp
 #include "DigitalRain.h"
 #include <iostream>
 #include <random>
@@ -165,10 +165,11 @@ public:
 
     const std::vector<Column>& getColumns() const { return columns; }
 };
+```
+
 
 ##Main.cpp
-
-Edit
+```cpp
 #include "DigitalRain.h"
 #include <windows.h>
 
@@ -186,7 +187,7 @@ int main() {
 
     return 0;
 }
-'''sh
+```
 
 Conclusion
 This Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It provides a visually pleasing display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.
