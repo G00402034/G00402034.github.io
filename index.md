@@ -70,11 +70,10 @@ Run the compiled executable:
 digital_rain.exe
 For Linux/macOS, you may need to replace windows.h with cross-platform alternatives.
 
+
+## Final Code 
+### DigitalRain.h
 ```cpp
-##Final Code 
-###DigitalRain.h
-
-
 #ifndef DIGITALRAIN_H
 #define DIGITALRAIN_H
 
@@ -98,7 +97,7 @@ protected:
 ```
 
 
-##DigitalRain.cpp
+### DigitalRain.cpp
 ```cpp
 #include "DigitalRain.h"
 #include <iostream>
@@ -168,7 +167,7 @@ public:
 ```
 
 
-##Main.cpp
+### Main.cpp
 ```cpp
 #include "DigitalRain.h"
 #include <windows.h>
@@ -189,5 +188,5 @@ int main() {
 }
 ```
 
-Conclusion
+## Conclusion
 This Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It provides a visually pleasing display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.
