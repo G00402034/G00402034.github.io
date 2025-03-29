@@ -6,8 +6,19 @@ author: "Sean Conroy"
 
 ## Digital Rain Simulation in C++
 ![Digital Rain in Action](assets/VsDebugConsole_NiEamvhBHi.gif)
+## UML Diagram of Digital Rain Project
+![UML Diagram](assets/chrome_wlvICTHz0N.png)
+The diagram shows the main classes and their relationships
 
+Private members are marked with "-", public with "+", protected with "#"
 
+Static methods are marked with {static}
+
+Abstract/virtual methods are marked appropriately
+
+The Column struct is shown as a separate class since it has its own behavior
+
+Windows API dependencies are not shown in the diagram as they're implementation details
 ### Introduction
 
 This project is a C++ implementation of the classic "Digital Rain" effect inspired by the Matrix movies. It utilizes modern C++ techniques, including object-oriented programming, smart pointers, and Windows API functions for console manipulation. The goal was to create an efficient, visually appealing, and optimized implementation of the cascading text effect in a Windows console environment.
