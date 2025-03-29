@@ -1,5 +1,5 @@
 ---
-title: "Digital Rain Simulation in C++"
+title: "Digital Rain Project Using C++"
 date: 2025-03-15
 author: "Sean Conroy"
 ---
