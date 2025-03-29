@@ -64,13 +64,11 @@ Through this project, I learned about console rendering techniques, working with
 1. Download the repository.
 2. Open your terminal and navigate to the project directory.
 3. Compile the code:
-```sh
+
 g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall
 Run the compiled executable:
 
-sh
-Copy
-Edit
+'''sh
 digital_rain.exe
 For Linux/macOS, you may need to replace windows.h with cross-platform alternatives.
 
@@ -188,6 +186,7 @@ int main() {
 
     return 0;
 }
+'''sh
 
 Conclusion
 This Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It provides a visually pleasing display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.
