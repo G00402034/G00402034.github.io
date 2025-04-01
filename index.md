@@ -57,13 +57,13 @@ author: "Sean Conroy"
 
 ## How to Run the Code
 
-- **A **Windows** system with a command-line terminal.**
+- **A Windows system with a command-line terminal.**
 - **A C++ compiler (e.g., `g++` from MinGW or MSVC).**
 
 ## Compilation & Execution
-**1. Download the repository.**
-**2. Open your terminal and navigate to the project directory.**
-**3. Compile the code:**
+- **Download the repository.**
+- **Open your terminal and navigate to the project directory.**
+- **Compile the code:**
 - **g++ -o digital_rain DigitalRain.cpp Main.cpp -std=c++17 -Wall**
   
 **Run the compiled executable:**
@@ -189,7 +189,7 @@ int main() {
 ```
 
 ## Conclusion
-- **This Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It provides a visually pleasing display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.**
+- **My Digital Rain simulation demonstrates C++ features, random generation, and  console rendering. It generates a smooth display of falling characters. Future enhancements could include interactive menus for controlling speed and column size, color variations, and graphical implementations using a GUI framework.**
 
 ## References
    - **[C++ Standard Library Reference](https://en.cppreference.com/w/)**
